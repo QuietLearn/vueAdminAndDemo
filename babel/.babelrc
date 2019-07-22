@@ -1,0 +1,5 @@
+{
+    //presets字段设定转码规则，将es2015规则加入 .babelrc：
+    "presets": ["es2015"],
+    "plugins": []
+}
