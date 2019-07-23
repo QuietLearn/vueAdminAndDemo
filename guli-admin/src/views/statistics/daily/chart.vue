@@ -7,6 +7,8 @@
         <el-select v-model="searchObj.type" clearable placeholder="请选择">
           <!-- 有value便于传给后台区分到底选择了哪个 -->
           <!-- 现在是硬编码，以后可以放在数据字典中 通过查询获得 -->
+
+          <!-- 可选，可设置多选，然后全都显示在图表中 -->
           <el-option label="学员登录数统计" value="login_num"/>
           <el-option label="学员注册数统计" value="register_num"/>
           <el-option label="课程播放数统计" value="video_view_num"/>
@@ -97,6 +99,7 @@ export default {
             break
         }
 
+        // 当数据获取成功后在进行chart的显示
         this.setChart()
       })
     },
@@ -113,7 +116,9 @@ export default {
           text: this.title
         },
         // 鼠标悬浮在图表节点的提示信息，可以进行详细的额外配置
+        // x坐标轴触发提示，放在空白处坐标轴也会有提示
         tooltip: {
+          // xaxis yaxis 是直角坐标系中的概念
           trigger: 'axis'
         },
         // 说明；图例
@@ -125,6 +130,8 @@ export default {
         dataZoom: [{
           show: true,
           height: 30,
+          // 如果是 number 表示控制一个轴，如果是 Array 表示控制多个轴。
+          // 表示这个 dataZoom 组件控制 第一个 xAxis
           xAxisIndex: [
             0
           ],
@@ -146,7 +153,9 @@ export default {
           type: 'inside',
           show: true,
           height: 15,
+          // 数据窗口范围的起始百分比
           start: 1,
+          // 数据窗口范围的结束百分比
           end: 35
         }],
         // 数据x轴标签

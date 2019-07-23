@@ -8,5 +8,11 @@ export default {
       url: `${api_name}/list`,
       method: 'get'
     })
+  },
+  getChildNestedTreeList(parentId) {
+    return request({
+      url: `${api_name}/${parentId}`,
+      method: 'get'
+    })
   }
 }
