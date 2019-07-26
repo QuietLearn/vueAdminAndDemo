@@ -11,7 +11,8 @@
       <el-step title="发布课程"/>
     </el-steps>
 
-    <!--课程章节列表 TODO-->
+    <!--课程章节列表-->
+    <ChapterList :course-id="courseId" />
 
     <div style="text-align:center">
       <el-button @click="previous">上一步</el-button>
@@ -21,8 +22,11 @@
 </template>
 
 <script>
+import ChapterList from '@/views/edu/course/components/ChapterList'
 
 export default {
+  // 注册组件
+  components: { ChapterList },
   data() {
     return {
       courseId: '', // 所属的课程id
@@ -32,7 +36,6 @@ export default {
   },
 
   created() {
-    console.log('chapter created')
     this.init()
   },
 
@@ -44,12 +47,10 @@ export default {
     },
 
     previous() {
-      console.log('previous')
       this.$router.push({ path: '/edu/course/info/' + this.courseId })
     },
 
     next() {
-      console.log('next')
       this.$router.push({ path: '/edu/course/publish/' + this.courseId })
     }
   }

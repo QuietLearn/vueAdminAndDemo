@@ -84,11 +84,13 @@
 
       <el-table-column label="创建时间" align="center">
         <template slot-scope="scope">
+          <!-- .substr(0, 10) -->
           {{ scope.row.gmtCreate.substr(0, 10) }}
         </template>
       </el-table-column>
       <el-table-column label="发布时间" align="center">
         <template slot-scope="scope">
+          <!-- .substr(0, 10) -->
           {{ scope.row.gmtModified.substr(0, 10) }}
         </template>
       </el-table-column>
@@ -211,13 +213,13 @@ export default {
 
     initTeacherList() {
       teacher.getList().then(response => {
-        this.teacherList = response.data.items
+        this.teacherList = response.data
       })
     },
 
     initSubjectList() {
       subject.getNestedTreeList().then(response => {
-        this.subjectNestedList = response.data.items
+        this.subjectNestedList = response.data
       })
     },
 

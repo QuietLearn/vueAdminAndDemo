@@ -137,7 +137,6 @@ export default {
     }
   },
   created() {
-    console.log('info created')
     this.init()
   },
 
@@ -175,7 +174,8 @@ export default {
         // 初始化分类列表
         // this.initSubjectList()
         subject.getNestedTreeList().then(response => {
-          this.subjectNestedList = response.data.items
+          console.log(response)
+          this.subjectNestedList = response.data
 
           // 填充二级菜单：遍历一级菜单列表，
           for (let i = 0; i < this.subjectNestedList.length; i++) {
@@ -201,7 +201,7 @@ export default {
       })
     },
 
-    // 1次请求 请求所有数据交给前端进行整理嵌套展示
+    // 1次请求 请求所有数据交给前端进行整理嵌套展示,select的change回调函数，默认将select的value传入进来
     subjectLevelOneChanged(value) {
       console.log(value)
       for (let i = 0; i < this.subjectNestedList.length; i++) {
@@ -226,8 +226,6 @@ export default {
     },
 
     next() {
-      console.log('next')
-
       this.saveBtnDisabled = true
       if (!this.courseInfo.id) {
         this.saveData()
@@ -265,18 +263,22 @@ export default {
       })
     },
 
+    // 当点击上传图片组件进行图片上传服务接口调用
+    // 且上到阿里云且成功后回调函数
     handleCoverSuccess(res, file) {
-      console.log(res)// 上传响应
+      // 上传响应
       console.log(URL.createObjectURL(file.raw))// base64编码
+      // res-->response
       this.courseInfo.cover = res.data.url
     },
 
     beforeCoverUpload(file) {
       const isJPG = file.type === 'image/jpeg'
+      const isPNG = file.type === 'image/png'
       const isLt2M = file.size / 1024 / 1024 < 2
 
-      if (!isJPG) {
-        this.$message.error('上传课程封面只能是 JPG 格式!')
+      if (!isJPG && !isPNG) {
+        this.$message.error('上传课程封面只能是 JPG或者PNG 格式!')
       }
       if (!isLt2M) {
         this.$message.error('上传课程封面大小不能超过 2MB!')
