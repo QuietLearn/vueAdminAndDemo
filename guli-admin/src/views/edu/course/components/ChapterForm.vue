@@ -1,14 +1,19 @@
 <template>
   <!-- 添加和修改章节表单 -->
+  <!-- 组件和组件有嵌套，有父子关系，子组件和父组件通信的话，要做到数据信息的同步，加上sync的修饰符
+  保证能够关闭掉子组件窗口 -->
   <el-dialog :visible.sync="dialogVisible" title="添加章节" @close="close">
+
     <el-form :model="chapter" label-width="120px">
       <el-form-item label="章节标题">
         <el-input v-model="chapter.title"/>
       </el-form-item>
+
       <el-form-item label="章节排序">
         <el-input-number v-model="chapter.sort" :min="0" controls-position="right"/>
       </el-form-item>
     </el-form>
+
     <div slot="footer" class="dialog-footer">
       <el-button @click="close">取 消</el-button>
       <el-button type="primary" @click="saveOrUpdate">确 定</el-button>
@@ -50,6 +55,8 @@ export default {
       }
     },
 
+    // 虽然el-dialog是有自带的close方法，但也只是保证弹窗隐藏而已
+    // 无法确保表单数据清空重置
     close() {
       this.dialogVisible = false
       // 重置表单
@@ -74,6 +81,10 @@ export default {
         })
         // 关闭组件
         this.close()
+        // 触发父组件的onSaveSuccess事件，此时父组件会指向后面的引用方法
+        // 函数注册给onSaveSuccess事件，事件一触发便会调用该函数
+        // 调用父组件中在onSaveSuccess中注册的回调函数
+
         // 调用父组件监听函数
         this.$emit('onSaveSuccess')
       })

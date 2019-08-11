@@ -12,6 +12,7 @@
     </el-steps>
 
     <!--课程章节列表-->
+    <!-- 子組件中的属性传值 -->
     <ChapterList :course-id="courseId" />
 
     <div style="text-align:center">

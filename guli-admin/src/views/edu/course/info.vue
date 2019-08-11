@@ -83,8 +83,9 @@
           :on-success="handleCoverSuccess"
           :before-upload="beforeCoverUpload"
           :action="BASE_API+'/admin/oss/file/upload?host=cover'"
+          name="file"
           class="avatar-uploader">
-          <img :src="courseInfo.cover">
+          <img :src="courseInfo.cover" width="300px" height="100px">
         </el-upload>
       </el-form-item>
 

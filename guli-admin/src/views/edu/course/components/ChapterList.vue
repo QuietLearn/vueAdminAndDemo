@@ -96,6 +96,7 @@ export default {
     addChapter() {
       this.$refs.chapterForm.open()
     },
+
     editChapter(chapterId) {
       this.$refs.chapterForm.open(chapterId)
     },
@@ -130,6 +131,7 @@ export default {
     addVideo(chapterId) {
       this.$refs.videoForm.open(chapterId)
     },
+
     editVideo(chapterId, videoId) {
       this.$refs.videoForm.open(chapterId, videoId)
     },
